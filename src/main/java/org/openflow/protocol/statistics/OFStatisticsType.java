@@ -101,6 +101,64 @@ public enum OFStatisticsType {
                             return new OFQueueStatisticsReply();
                         }
                     }),
+                    // Ashish: Begin mods for COAP
+                    UTIL      (6, OFUtilStatisticsRequest.class, OFUtilStatisticsReply.class,
+               			        new Instantiable<OFStatistics>() {
+               			            @Override
+               			            public OFStatistics instantiate() {
+               			                return new OFUtilStatisticsRequest();
+               			            }
+               			        },
+               			        new Instantiable<OFStatistics>() {
+               			            @Override
+               			            public OFStatistics instantiate() {
+               			                return new OFUtilStatisticsReply();
+               			            }
+               			        }),
+
+               	 STATION   (7, OFStringStatisticsRequest.class, OFStringStatisticsReply.class,
+               			        new Instantiable<OFStatistics>() {
+               			            @Override
+               			            public OFStatistics instantiate() {
+               			                return new OFStringStatisticsRequest();
+               			            }
+               			        },
+               			        new Instantiable<OFStatistics>() {
+               			            @Override
+               			            public OFStatistics instantiate() {
+               			                return new OFStringStatisticsReply();
+               			            }
+               			        }),
+               			        /*
+                  	 NONWIFI   (8, OFNonwifiStatisticsRequest.class, OFNonwifiStatisticsReply.class,
+               		        new Instantiable<OFStatistics>() {
+               		            @Override
+               		            public OFStatistics instantiate() {
+               		                return new OFNonwifiStatisticsRequest();
+               		            }
+               		        },
+               		        new Instantiable<OFStatistics>() {
+               		            @Override
+               		            public OFStatistics instantiate() {
+               		                return new OFNonwifiStatisticsReply();
+               		            }
+               		        }),
+                  	 CLIENT   (9, OFClientStatisticsRequest.class, OFClientStatisticsReply.class,
+               		        new Instantiable<OFStatistics>() {
+               		            @Override
+               		            public OFStatistics instantiate() {
+               		                return new OFClientStatisticsRequest();
+               		            }
+               		        },
+               		        new Instantiable<OFStatistics>() {
+               		            @Override
+               		            public OFStatistics instantiate() {
+               		                return new OFClientStatisticsReply();
+               		            }
+               		        }),
+               		        */
+                        // Ashish: End mods for COAP
+                                   
     VENDOR     (0xffff, OFVendorStatistics.class, OFVendorStatistics.class,
                     new Instantiable<OFStatistics>() {
                         @Override

@@ -36,6 +36,8 @@ import org.openflow.protocol.statistics.OFPortStatisticsRequest;
 import org.openflow.protocol.statistics.OFQueueStatisticsRequest;
 import org.openflow.protocol.statistics.OFStatistics;
 import org.openflow.protocol.statistics.OFStatisticsType;
+import org.openflow.protocol.statistics.OFStringStatisticsRequest;
+import org.openflow.protocol.statistics.OFUtilStatisticsRequest;
 import org.openflow.util.HexString;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -111,6 +113,20 @@ public class SwitchResourceBase extends ServerResource {
                 specificReq.setQueueId(0xffffffff);
                 req.setStatistics(Collections.singletonList((OFStatistics)specificReq));
                 requestLength += specificReq.getLength();
+                // Ashish: Begin mods for COAP
+               } else if (statType == OFStatisticsType.UTIL) {
+                   OFUtilStatisticsRequest specificReq = new OFUtilStatisticsRequest();
+                   specificReq.setType((short) 0); // TODO: 0123 Dummy value - not using the field for now.
+                   req.setStatistics(Collections.singletonList((OFStatistics)specificReq));
+                   requestLength += specificReq.getLength();
+                   log.info("Pulling util statistics...");
+               } else if (statType == OFStatisticsType.STATION) {
+                   OFStringStatisticsRequest specificReq = new OFStringStatisticsRequest();
+                   specificReq.setType((short) 0); // TODO: 0123 Dummy value - not using the field for now.
+                   req.setStatistics(Collections.singletonList((OFStatistics)specificReq));
+                   requestLength += specificReq.getLength();
+                   log.info("Pulling station statistics...");
+                // Ashish: End mods for COAP
             } else if (statType == OFStatisticsType.DESC ||
                        statType == OFStatisticsType.TABLE) {
                 // pass - nothing todo besides set the type above

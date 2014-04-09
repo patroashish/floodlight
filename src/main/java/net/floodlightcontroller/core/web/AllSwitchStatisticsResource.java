@@ -71,6 +71,16 @@ public class AllSwitchStatisticsResource extends SwitchResourceBase {
         } else if (statType.equals("table")) {
             type = OFStatisticsType.TABLE;
             rType = REQUESTTYPE.OFSTATS;
+        // Ashish: Begin mods for COAP
+        } else if (statType.equals("util")) {
+          log.info("util: Pulling " + statType + " statistics...");
+            type = OFStatisticsType.UTIL;
+            rType = REQUESTTYPE.OFSTATS;
+        } else if (statType.equals("station")) {
+          log.info("station: Pulling " + statType + " statistics...");
+            type = OFStatisticsType.STATION;
+            rType = REQUESTTYPE.OFSTATS;
+        // Ashish: End mods for COAP
         } else if (statType.equals("features")) {
             rType = REQUESTTYPE.OFFEATURES;
         } else {
@@ -85,6 +95,11 @@ public class AllSwitchStatisticsResource extends SwitchResourceBase {
         List<GetConcurrentStatsThread> pendingRemovalThreads = new ArrayList<GetConcurrentStatsThread>();
         GetConcurrentStatsThread t;
         for (Long l : switchDpids) {
+        	
+            // Ashish: Begin mods for COAP
+            log.info("Found switchDpid: " + l);
+            // Ashish: End mods for COAP
+            
             t = new GetConcurrentStatsThread(l, rType, type);
             activeThreads.add(t);
             t.start();

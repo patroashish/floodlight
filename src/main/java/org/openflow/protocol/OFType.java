@@ -137,8 +137,23 @@ public enum OFType {
                                     @Override
                                     public OFMessage instantiate() {
                                         return new OFQueueGetConfigReply();
-                                    }});
+                                    }}),
 
+    // Ashish: End mods for COAP
+    // 0124: Options seems to be missing here. Present in AP's openflow implementation.
+    // So, skipping two numbers for the next one.
+    /*
+                            OFPT_QUEUE_GET_CONFIG_REQUEST,  // Controller/switch message
+                            OFPT_QUEUE_GET_CONFIG_REPLY     // Controller/switch message
+    */
+    WIRELESS_CONFIG     (22, OFSetWirelessConfig.class, new Instantiable<OFMessage>() {
+					        @Override
+					        public OFMessage instantiate() {
+					            return new OFSetWirelessConfig();
+					        }});
+ 
+    // Ashish: End mods for COAP
+    
     static OFType[] mapping;
 
     protected Class<? extends OFMessage> clazz;
